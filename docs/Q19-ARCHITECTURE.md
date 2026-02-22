@@ -97,3 +97,33 @@ Database Connection:
   User: aaa (superuser)
 
 Status: READY FOR CLAUDE API INTEGRATION
+
+## Q19 Voice + Claude Complete Stack
+
+Frontend (React):
+  - Web Speech Recognition (4 languages)
+  - Speech Synthesis for responses
+  - Error display and loading feedback
+  - Pastel UI with lime borders
+
+Backend (Node.js):
+  - Express.js on port 3001
+  - PostgreSQL connection pool
+  - Claude Opus 3 API integration
+  - Safe prompt: SELECT-only SQL generation
+  - SQL validation: blocks INSERT/UPDATE/DELETE/DROP/CREATE/ALTER/TRUNCATE
+  - Result formatting: name, price, category, preview, image
+  - Error handling and logging
+
+Database:
+  - PostgreSQL (localhost:5432)
+  - Table: quintrix_products (817 rows)
+  - Indexed on name, price, original_url
+
+Security:
+  - .env with API key (600 permissions)
+  - SQL validation (no DML/DDL)
+  - Query timeout (30s)
+  - CORS enabled
+
+Status: READY FOR PRODUCTION
