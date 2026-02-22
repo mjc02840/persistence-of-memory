@@ -68,3 +68,32 @@ Selectors (15-file sample):
 
 Status: PRODUCTION READY
 Next: Voice interface (Web Speech API + Claude API)
+
+## Voice Interface Layer
+
+Frontend Stack:
+  - React 18.2 with Web Speech API
+  - Axios for HTTP requests
+  - Pastel color scheme (CSS gradients)
+  - 3px lime green borders on buttons and responses
+
+Backend Stack:
+  - Express.js server (port 3001)
+  - PostgreSQL connection to aaa database
+  - CORS enabled for frontend communication
+  - Basic query parsing (number extraction)
+
+Data Flow:
+  Voice Input → Web Speech API → Transcription
+  → HTTP POST /api/query → Backend
+  → SQL generation (Claude API pending)
+  → PostgreSQL quintrix_products
+  → JSON response → Display in UI
+
+Database Connection:
+  Host: localhost:5432
+  Database: aaa
+  Table: quintrix_products (817 rows)
+  User: aaa (superuser)
+
+Status: READY FOR CLAUDE API INTEGRATION
