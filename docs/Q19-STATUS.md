@@ -1,5 +1,1 @@
-# Q19 Status
-
-Current state: Active focus with February 27, 2026 demo deadline.
-Blockers: Resolved via persistence layer.
-Last working: Voice-driven inventory prototype.
+# Q19 Status\nActive. Demo: 2026-02-27.

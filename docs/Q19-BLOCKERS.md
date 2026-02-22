@@ -1,4 +1,1 @@
-# Q19 Blockers
-
-Resolved: Memory persistence issues.
-Pending: None.
+# Q19 Blockers\nMemory persistence resolved via this repo.

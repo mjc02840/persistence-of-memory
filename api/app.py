@@ -1,43 +1,42 @@
 #!/usr/bin/env python3
-# api/app.py
-# Phase 3: Flask API for reading/updating memory.
+# api/app.py - Flask API for memory read/update + git auto-commit
 
 from flask import Flask, request, jsonify
-import os
-import subprocess
+import os, subprocess
 
 app = Flask(__name__)
+BASE = os.path.dirname(os.path.dirname(__file__))
 
-REPO_PATH = os.path.dirname(os.path.dirname(__file__))
+def git_run(cmd):
+    subprocess.run(cmd, cwd=BASE, check=True)
 
-@app.route('/memory/<file_name>', methods=['GET'])
+@app.route('/memory/<path:file_name>', methods=['GET'])
 def get_memory(file_name):
-    file_path = os.path.join(REPO_PATH, file_name)
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            return jsonify({'content': f.read()})
-    return jsonify({'error': 'File not found'}), 404
+    path = os.path.join(BASE, file_name)
+    if os.path.exists(path):
+        with open(path) as f: return jsonify({"content": f.read()})
+    return jsonify({"error": "Not found"}), 404
 
 @app.route('/update', methods=['POST'])
-def update_memory():
+def update():
     data = request.json
-    file_name = data.get('file')
-    section = data.get('section')
-    content = data.get('content')
-    
-    file_path = os.path.join(REPO_PATH, file_name)
-    if not os.path.exists(file_path):
-        with open(file_path, 'w') as f:
-            f.write(f'# {section}\n\n{content}\n')
-    else:
-        with open(file_path, 'a') as f:
-            f.write(f'\n## {section}\n\n{content}\n')
-    
-    subprocess.run(['git', 'add', file_path], cwd=REPO_PATH, check=True)
-    subprocess.run(['git', 'commit', '-m', f'API update to {file_name}'], cwd=REPO_PATH, check=True)
-    subprocess.run(['git', 'push', 'origin', 'main'], cwd=REPO_PATH, check=True)
-    
-    return jsonify({'status': 'Updated'})
+    file_name = data.get("file")
+    section = data.get("section")
+    content = data.get("content")
+    if not all([file_name, section, content]):
+        return jsonify({"error": "Missing fields"}), 400
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    path = os.path.join(BASE, file_name)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    with open(path, "a") as f:
+        f.write(f"\n## {section}\n\n{content}\n")
+
+    git_run(["git", "add", path])
+    git_run(["git", "commit", "-m", f"API update: {section} in {file_name}"])
+    git_run(["git", "push", "origin", "main"])
+
+    return jsonify({"status": "Updated and pushed"})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
