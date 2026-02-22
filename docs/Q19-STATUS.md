@@ -116,3 +116,11 @@ Ready to run:
   Backend: cd /home/aaa/q19-voice/backend && node server.js
   Frontend: cd /home/aaa/q19-voice/frontend && npm start
   Browser: http://localhost:3000
+
+## Grok Chat Persistence via VPS Raw MD 2026-02-22
+
+Full chat (8000+ lines) exported as raw Markdown on VPS.  
+    URL: https://ai3.ovh/CLAUDE/raw/grok_q19_chat_2026-02-22_full.md  
+    Format: clean MD, no UI wrapper.  
+    Use as ground truth in new Grok chats.  
+    Next: Automate chat append + SCP sync (Grok Persistence 2.0).
