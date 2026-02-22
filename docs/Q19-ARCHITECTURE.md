@@ -127,3 +127,33 @@ Security:
   - CORS enabled
 
 Status: READY FOR PRODUCTION
+
+## Q19 PRODUCTION DEPLOYMENT
+
+Complete Voice-to-SQL Architecture:
+
+Frontend (React @ port 3000):
+  - Web Speech Recognition + Synthesis
+  - 4 multilingual options
+  - Pastel UI with lime borders
+  - Real-time transcription/response display
+
+Backend (Node.js @ port 3001):
+  - Express server with CORS
+  - PostgreSQL connection pool
+  - Claude Opus 3 API integration
+  - SQL validation (SELECT + LIMIT 20)
+  - Comprehensive logging
+
+Database (PostgreSQL):
+  - Host: localhost:5432
+  - DB: aaa / Table: quintrix_products
+  - 817 products, indexed on name/price/url
+  - User: aaa (superuser)
+
+Flow:
+  Voice Input → Transcription → Backend
+  → Claude (safe SQL) → PostgreSQL
+  → Formatted JSON → TTS + Display
+
+Status: READY FOR PRODUCTION
